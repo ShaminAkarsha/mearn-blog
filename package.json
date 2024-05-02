@@ -1,5 +1,26 @@
 {
+  "name": "mearn-blog",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev":"nodemon api/index.js",
+    "start":"node api/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShaminAkarsha/mearn-blog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShaminAkarsha/mearn-blog/issues"
+  },
+  "homepage": "https://github.com/ShaminAkarsha/mearn-blog#readme",
   "dependencies": {
-    "react-icons": "^5.2.0"
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0"
   }
 }
