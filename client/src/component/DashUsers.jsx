@@ -41,10 +41,24 @@ export default function DashUsers() {
         }
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
-  const handleDeleteUser = async () => {};
+  const handleDeleteUser = async () => {
+    try {
+      const res = await fetch(`/api/user/delete/${deletingUserId}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        setUsers((pre) => pre.filter((user) => user._id !== deletingUserId));
+        setShowModel(false);
+      } else {
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div
       className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100
@@ -77,7 +91,11 @@ export default function DashUsers() {
                   <Table.Cell>{user.username}</Table.Cell>
                   <Table.Cell>{user.email}</Table.Cell>
                   <Table.Cell>
-                    {user.isAdmin ? (<FaCheck className="text-green-500"/>) : (<FaTimes className="text-red-500" />)}
+                    {user.isAdmin ? (
+                      <FaCheck className="text-green-500" />
+                    ) : (
+                      <FaTimes className="text-red-500" />
+                    )}
                   </Table.Cell>
                   <Table.Cell>
                     <span
