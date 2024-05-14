@@ -3,6 +3,7 @@ import { useEffect, useState, CSSProperties } from "react";
 import { Link, useParams } from "react-router-dom";
 import GridLoader from "react-spinners/GridLoader";
 import CallToAction from "../component/CallToAction";
+import CommentSection from "../component/CommentSection";
 
 export default function PostPage() {
   const { postslug } = useParams();
@@ -67,6 +68,7 @@ export default function PostPage() {
       <div className="max-w-4xl mx-auto w-full">
         <CallToAction/ >
       </div>
+      <CommentSection postId={post._id}/>
     </main>
     
   );
