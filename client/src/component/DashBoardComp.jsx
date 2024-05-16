@@ -8,6 +8,7 @@ import {
 } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import CountUp from 'react-countup';
 
 export default function DashBoardComp() {
   const [users, setUsers] = useState([]);
@@ -20,8 +21,11 @@ export default function DashBoardComp() {
   const [lastMonthComments, setLastMonthComments] = useState(0);
   const [lastMonthPosts, setLastMonthPosts] = useState(0);
 
+  const [isAllLoaded, setIsAllLoaded] = useState(false);
+
   const { currentUser } = useSelector((state) => state.user);
   useEffect(() => {
+    setIsAllLoaded(false);
     const fetchUsers = async () => {
       try {
         const res = await fetch(`/api/user/getusers?limit=5`);
@@ -66,6 +70,7 @@ export default function DashBoardComp() {
       fetchPosts();
       fetchComments();
     }
+    setIsAllLoaded(true);
   }, [currentUser]);
   return (
     <div className="p-3 md:mx-auto">
@@ -77,7 +82,9 @@ export default function DashBoardComp() {
           <div className="flex justify-between">
             <div className="">
               <h3 className="text-gray-500 text-md uppercase">Total Users</h3>
-              <p className="text-2xl">{totalUsers}</p>
+              <p className="text-2xl">{isAllLoaded ? (
+                <CountUp start='0' end={totalUsers} duration={5}/>
+              ): 0 }</p>
             </div>
             <HiOutlineUserGroup
               className="bg-teal-600 text-white rounded-full
@@ -99,7 +106,9 @@ export default function DashBoardComp() {
           <div className="flex justify-between">
             <div className="">
               <h3 className="text-gray-500 text-md uppercase">Total Posts</h3>
-              <p className="text-2xl">{totalPosts}</p>
+              <p className="text-2xl">{isAllLoaded ? (
+                <CountUp start='0' end={totalPosts} duration={3.5}/>
+              ): 0 }</p>
             </div>
             <HiAnnotation
               className="bg-indigo-600 text-white rounded-full
@@ -123,7 +132,9 @@ export default function DashBoardComp() {
               <h3 className="text-gray-500 text-md uppercase">
                 Total Comments
               </h3>
-              <p className="text-2xl">{totalComments}</p>
+              <p className="text-2xl">{isAllLoaded ? (
+                <CountUp start='0' end={totalComments} duration={5}/>
+              ): 0 }</p>
             </div>
             <HiDocumentText
               className="bg-lime-600 text-white rounded-full
