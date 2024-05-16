@@ -4,6 +4,7 @@ import DashSidebar from "../component/DashSidebar";
 import DashProfile from "../component/DashProfile";
 import DashPosts from "../component/DashPosts";
 import DashUsers from "../component/DashUsers";
+import DashComments from "../component/DashComments";
 
 export default function Dashboard() {
   const location = useLocation();
@@ -15,14 +16,17 @@ export default function Dashboard() {
       setTab(tabFromURL);
     }
   }, [location.search]);
-  return <div className="min-h-screen flex flex-col md:flex-row">
-    <div className="md:w-56">
-      {/* Sidebar */}
-      <DashSidebar />
+  return (
+    <div className="min-h-screen flex flex-col md:flex-row">
+      <div className="md:w-56">
+        {/* Sidebar */}
+        <DashSidebar />
+      </div>
+      {/* Profile... */}
+      {tab === "profile" && <DashProfile />}
+      {tab === "posts" && <DashPosts />}
+      {tab === "users" && <DashUsers />}
+      {tab === "comments" && <DashComments />}
     </div>
-    { /* Profile... */}
-    {tab === 'profile' && <DashProfile />}
-    {tab === 'posts' && <DashPosts />}
-    {tab === 'users' && <DashUsers />}
-  </div>;
+  );
 }
