@@ -1,7 +1,9 @@
 import { Button, Select, TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, CSSProperties } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostCard from "../component/PostCard";
+import PuffLoader from "react-spinners/PuffLoader";
+import { HiArrowCircleDown, HiEmojiSad, HiOutlineEmojiSad } from "react-icons/hi";
 
 export default function Search() {
   const location = useLocation();
@@ -74,26 +76,26 @@ export default function Search() {
     navigate(`/search?${searchQuery}`);
   };
 
-  const handleShowMore = async () =>{
+  const handleShowMore = async () => {
     const numberOfPosts = posts.length;
     const startIndex = numberOfPosts;
     const urlParams = new URLSearchParams(location.search);
-    urlParams.set('startIndex', startIndex);
+    urlParams.set("startIndex", startIndex);
     const searchQuery = urlParams.toString();
     const res = await fetch(`/api/post/getposts?${searchQuery}`);
-    if(!res.ok){
+    if (!res.ok) {
       return;
     }
-    if(res.ok){
+    if (res.ok) {
       const data = await res.json();
       setPosts([...posts, ...data.posts]);
-      if(data.posts.length === 9){
+      if (data.posts.length === 9) {
         setShowMore(true);
-      }else{
+      } else {
         setShowMore(false);
       }
     }
-  }
+  };
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -145,22 +147,32 @@ export default function Search() {
         </form>
       </div>
       <div className="w-full ">
-        <h1 className="text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5">
+        <h1 className="text-3xl font-semibold sm:border-b border-gray-500 shadow-md shadow-blue-300 p-3 mt-5">
           Posts Results:
         </h1>
         <div className="p-7 flex flex-wrap gap-3">
           {!loading && posts.length === 0 && (
-            <p className="text-xl text-gray-500">No posts found</p>
+            <div className="flex flex-col justify-center mx-auto items-center">
+              <HiOutlineEmojiSad className="w-full text-6xl text-gray-300 "/>
+              <p className="text-2xl text-gray-400 font-bold">No posts found</p>
+            </div>
           )}
-          {loading && <p className="text-xl text-gray-500">Loading...</p>}
+          {loading && (
+            <div className="flex justify-center mx-auto items-center min-h-screen">
+              <PuffLoader color="#36d7b7" />
+            </div>
+          )}
           {!loading &&
             posts &&
             posts.map((post) => <PostCard key={post._id} post={post} />)}
-          {
-            showMore && <button onClick={handleShowMore} className="text-teal-500 text-lg hover:underline p-7 w-full">
+          {showMore && (
+            <button
+              onClick={handleShowMore}
+              className="text-teal-500 text-lg hover:underline p-7 w-full"
+            >
               show more
             </button>
-          }
+          )}
         </div>
       </div>
     </div>
