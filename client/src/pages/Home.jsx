@@ -23,7 +23,7 @@ export default function Home() {
           web development, software enginearing, and programming languages.
         </p>
         <Link
-          to="/search"
+          to="/search?searchTerm=&sort=desc&category="
           className="text-sm sm:text-sm text-teal-500 font-bold 
         hover:underline"
         >
@@ -42,7 +42,7 @@ export default function Home() {
                 <PostCard key={post._id} post={post} />
               ))}
             </div>
-            <Link to='/search' className="text-lg text-teal-500 hover:underline text-center">Viwe all posts</Link>
+            <Link to='/search?searchTerm=&sort=desc&category=' className="text-lg text-teal-500 hover:underline text-center">Viwe all posts</Link>
           </div>
         )}
       </div>

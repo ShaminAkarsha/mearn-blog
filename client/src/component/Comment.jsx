@@ -47,6 +47,8 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
       console.log(error.message);
     }
   };
+
+  const doNothing = ()=>{}
   return (
     <div className="flex p-4 border-b dark:border-gray-600 text-sm">
       <div className="flex-shrink-0 mr-3">
@@ -54,6 +56,10 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
           className="w-10 h-10 rounded-full bg-gray-200"
           src={user.profilePicture}
           alt={user.username}
+          onClick={doNothing}
+          onContextMenu={(e) => e.preventDefault()} // Disable right-click context menu
+          draggable="false" // Prevent dragging
+          style={{ userSelect: 'none', pointerEvents: 'none' }} // Prevent selection and pointer events
         />
       </div>
       <div className="flex-1">
@@ -90,13 +96,13 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
                 className=""
                 onClick={() => setIsEditin(false)}
               >
-                Cansel
+                Cancel
               </Button>
             </div>
           </>
         ) : (
           <>
-            <p className="text-gray-500 pb-2">{comment.content}</p>
+            <p className="text-gray-500 pb-2  max-w-[570px] break-words">{comment.content}</p>
             <div className="flex items-center pt-2 text-sm border-t dark:border-gray-700 max-w-fit gap-2">
               <button
                 type="button"
