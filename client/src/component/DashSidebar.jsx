@@ -6,6 +6,7 @@ import {
   HiOutlineUserGroup,
   HiAnnotation,
   HiOutlineAdjustments,
+  HiLightBulb,
 } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -98,6 +99,17 @@ export default function DashSidebar() {
                 as="div"
               >
                 Comments
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser.isAdmin && (
+            <Link to="/dashboard?tab=ads">
+              <Sidebar.Item
+                active={tab === "ads"}
+                icon={HiLightBulb}
+                as="div"
+              >
+                Ads
               </Sidebar.Item>
             </Link>
           )}
