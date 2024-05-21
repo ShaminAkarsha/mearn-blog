@@ -18,7 +18,7 @@ export default function AdSection() {
         const data = await res.json();
         if (res.ok) {
           setUserAds(data.ads);
-          if (data.ass.length < 9) {
+          if (data.ads.length < 9) {
             setShowMore(false);
           }
         }
@@ -33,9 +33,7 @@ export default function AdSection() {
   const handleShowMore = async () => {
     const startIndex = userAds.length;
     try {
-      const res = await fetch(
-        `/api/ad/getads?startIndex=${startIndex}`
-      );
+      const res = await fetch(`/api/ad/getads?startIndex=${startIndex}`);
       const data = await res.json();
       if (res.ok) {
         setUserAds((prev) => [...prev, ...data.ads]);
@@ -53,19 +51,14 @@ export default function AdSection() {
       return;
     }
     try {
-      const res = await fetch(
-        `/api/ad/deletead/${deletingAdId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await fetch(`/api/ad/deletead/${deletingAdId}`, {
+        method: "DELETE",
+      });
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);
       } else {
-        setUserAds((prev) =>
-          prev.filter((ad) => ad._id !== deletingAdId)
-        );
+        setUserAds((prev) => prev.filter((ad) => ad._id !== deletingAdId));
       }
     } catch (error) {
       console.log(error);
@@ -84,30 +77,30 @@ export default function AdSection() {
               <Table.HeadCell>Ad Image</Table.HeadCell>
               <Table.HeadCell>Ad Title</Table.HeadCell>
               <Table.HeadCell>content</Table.HeadCell>
-              <Table.HeadCell>Ad link</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
             </Table.Head>
-            {userAds.map((add) => (
+            {userAds.map((ad) => (
               <Table.Body className="divide-y">
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell>
                     {new Date(ad.updatedAt).toLocaleDateString()}
                   </Table.Cell>
                   <Table.Cell>
-                      <img
-                        src={add.image}
-                        alt={add.title}
-                        className="w-20 h-10 object-cover bg-gray-500"/>
+                    <img
+                      src={ad.image}
+                      alt={ad.title}
+                      className="w-20 h-10 object-cover bg-gray-500"
+                    />
                   </Table.Cell>
                   <Table.Cell>
                     <Link
-                      className="font-medium text-gray-900 dark:text-white"
-                      to={add.adlink}
+                      className="font-medium text-teal-500 dark:text-white hover:underline"
+                      to={ad.adlink}
                     >
                       {ad.title}
                     </Link>
                   </Table.Cell>
-                  <Table.Cell>{ad.category}</Table.Cell>
+                  <Table.Cell>{ad.content}</Table.Cell>
                   <Table.Cell>
                     <span
                       onClick={() => {
@@ -136,7 +129,7 @@ export default function AdSection() {
         <p>You have no ads yet!</p>
       )}
       <div className="fixed bottom-4 z-20 right-4">
-        <Link to={"/create-add"}>
+        <Link to={"/create-add"} target="new">
           <AddButton />
         </Link>
       </div>

@@ -1,12 +1,16 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
-
 
 export default function Header() {
   const path = useLocation();
@@ -15,15 +19,15 @@ export default function Header() {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
-  const [searchTerm, setSearchTrem] = useState('');
+  const [searchTerm, setSearchTrem] = useState("");
 
-  useEffect(()=>{
+  useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
-    const searchTermFromURL = urlParams.get('searchTerm');
-    if(searchTermFromURL){
+    const searchTermFromURL = urlParams.get("searchTerm");
+    if (searchTermFromURL) {
       setSearchTrem(searchTermFromURL);
     }
-  },[location.search]);
+  }, [location.search]);
   //const path = useLocation.pathname;
 
   const handleSignout = async () => {
@@ -42,13 +46,17 @@ export default function Header() {
     }
   };
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const urlParams = new URLSearchParams(location.search);
-    urlParams.set('searchTerm', searchTerm);
-    const searchQuery = urlParams.toString();
-    navigate(`/search?${searchQuery}`);
-  }
+    if (searchTerm === "") {
+      navigate("/search?searchTerm=&sort=desc&category=");
+    } else {
+      const urlParams = new URLSearchParams(location.search);
+      urlParams.set("searchTerm", searchTerm);
+      const searchQuery = urlParams.toString();
+      navigate(`/search?${searchQuery}`);
+    }
+  };
 
   return (
     <Navbar className="border-b-2">
@@ -75,7 +83,12 @@ export default function Header() {
           onChange={(e) => setSearchTrem(e.target.value)}
         />
       </form>
-      <Button className="w-12 h-10 lg:hidden" onClick={()=> navigate('/search?searchTerm=&sort=desc&category=')} color="gray" pill>
+      <Button
+        className="w-12 h-10 lg:hidden"
+        onClick={() => navigate("/search?searchTerm=&sort=desc&category=")}
+        color="gray"
+        pill
+      >
         <AiOutlineSearch />
       </Button>
       <div className="flex gap-2 md:order-2">

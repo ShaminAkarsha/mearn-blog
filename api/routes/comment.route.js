@@ -1,9 +1,9 @@
-import exprss from "express";
+import express from "express";
 import { createComment, getPostComment, likeComment, editComment, deleteComment, getComments } from "../controllers/comment.controller.js";
 import { verifyToken } from "../utils/verifyUser.js"
 
 
-const router = exprss.Router();
+const router = express.Router();
 
 router.post("/create", verifyToken , createComment);
 router.get("/getPostComments/:postId", getPostComment);
