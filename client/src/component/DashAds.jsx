@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import AddButton from "./AddButton";
+import AddButton from "./utils/AddButton";
 
-export default function AdSection() {
+export default function DashAds() {
   const { currentUser } = useSelector((state) => state.user);
   const [userAds, setUserAds] = useState([]);
   const [showMore, setShowMore] = useState(true);
@@ -14,7 +14,7 @@ export default function AdSection() {
   useEffect(() => {
     const fetchAd = async () => {
       try {
-        const res = await fetch(`/api/ad/getads`);
+        const res = await fetch(`/api/ad/getads?adId=&category=`);
         const data = await res.json();
         if (res.ok) {
           setUserAds(data.ads);
@@ -74,6 +74,7 @@ export default function AdSection() {
           <Table hoverable className="shadow-md">
             <Table.Head>
               <Table.HeadCell>Date updated</Table.HeadCell>
+              <Table.HeadCell>Ad Id</Table.HeadCell>
               <Table.HeadCell>Ad Image</Table.HeadCell>
               <Table.HeadCell>Ad Title</Table.HeadCell>
               <Table.HeadCell>content</Table.HeadCell>
@@ -84,6 +85,9 @@ export default function AdSection() {
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell>
                     {new Date(ad.updatedAt).toLocaleDateString()}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {ad.adid}
                   </Table.Cell>
                   <Table.Cell>
                     <img

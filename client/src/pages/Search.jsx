@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PostCard from "../component/PostCard";
 import PuffLoader from "react-spinners/PuffLoader";
 import { HiArrowCircleDown, HiEmojiSad, HiOutlineEmojiSad } from "react-icons/hi";
+import AdComp from "../component/AdComp";
 
 export default function Search() {
   const location = useLocation();
@@ -144,6 +145,9 @@ export default function Search() {
           <Button type="submit" outline gradientDuoTone="purpleToPink">
             Apply Filters
           </Button>
+          <div><AdComp adId={1}/></div>
+          <div className="hidden md:block"><AdComp adId={2}/></div>
+          
         </form>
       </div>
       <div className="w-full ">

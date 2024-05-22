@@ -6,7 +6,7 @@ export const create = async (req, res, next) => {
   if (!req.user.isAdmin) {
     return next(errorHandler(403, "You are not allowed to create an ad"));
   }
-  if (!req.body.title || !req.body.content) {
+  if (!req.body.title || !req.body.content || !req.body.adid) {
     return next(errorHandler(400, "Please provide all required fields"));
   }
   const newAd = new Ad(req.body);
@@ -24,13 +24,12 @@ export const getads = async (req, res, next) => {
   try {
     const startIndex = parseInt(req, query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
-    const sortDirection = req.query.order === "asc" ? 1 : -1;
     const ads = await Ad.find({
-      ...(req.query.postId && { _id: req.query.postId }),
-      ...(req.query.searchTerm && {
+      ...(req.query.adid && req.query.adid !== '' && { adid: req.query.adid }),
+      ...(req.query.category && req.query.category !== '' && {
         $or: [
-          { title: { $regex: req.query.searchTerm, $options: "i" } },
-          { content: { $regex: req.query.searchTerm, $options: "i" } },
+          { title: { $regex: req.query.category, $options: "i" } },
+          { content: { $regex: req.query.category, $options: "i" } },
         ],
       }),
     })

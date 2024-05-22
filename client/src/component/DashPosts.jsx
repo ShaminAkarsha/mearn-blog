@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle, HiPlus } from "react-icons/hi";
-import AddButton from "./AddButton";
+import AddButton from "./utils/AddButton";
 
 export default function DashPosts() {
   const { currentUser } = useSelector((state) => state.user);
