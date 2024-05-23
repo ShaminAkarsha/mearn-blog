@@ -14,6 +14,7 @@ import UpdatePost from "./pages/UpdatePost";
 import PostPage from "./pages/PostPage";
 import ScrollToTop from "./component/ScrollToTop";
 import Search from "./pages/Search";
+import CraeteAd from "./pages/CraeteAd";
 
 
 export default function App() {
@@ -32,6 +33,7 @@ export default function App() {
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/update-post/:postId" element={<UpdatePost />} />
+          <Route path="/create-ad" element={<CraeteAd/>} />
         </Route>
         <Route path="/projects" element={<Projects />} />
         <Route path="/post/:postslug" element={<PostPage />} />

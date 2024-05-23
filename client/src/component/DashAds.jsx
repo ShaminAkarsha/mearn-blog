@@ -99,7 +99,7 @@ export default function DashAds() {
                   <Table.Cell>
                     <Link
                       className="font-medium text-teal-500 dark:text-white hover:underline"
-                      to={ad.adlink}
+                      to={ad.adlink} target="new"
                     >
                       {ad.title}
                     </Link>
@@ -133,7 +133,7 @@ export default function DashAds() {
         <p>You have no ads yet!</p>
       )}
       <div className="fixed bottom-4 z-20 right-4">
-        <Link to={"/create-add"} target="new">
+        <Link to={"/create-ad"}>
           <AddButton />
         </Link>
       </div>
