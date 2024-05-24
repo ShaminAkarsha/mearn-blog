@@ -51,12 +51,12 @@ export default function AdComp({ adId, category }) {
         >
           <MdClose />
         </button>
-        <Link to={ad.adlink}>
+        <Link to={ad.adlink} target="_blank">
           <Card className="max-w-sm" imgAlt={ad.content} imgSrc={ad.image}>
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {ad.title}
             </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
+            <p className="font-sans text-sm text-gray-500 dark:text-gray-400">
               {ad.content}
             </p>
           </Card>
