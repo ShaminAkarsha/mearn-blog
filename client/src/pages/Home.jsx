@@ -34,7 +34,7 @@ export default function Home() {
       <div className="p-3 bg-amber-100 dark:bg-slate-700">
         <CallToAction />
       </div>
-      <div className="p-3 mt-2 flex flex-col sm:flex-row justify-center gap-4 bg-slate-100 shadow-md">
+      <div className="p-3 max-w-6xl mx-auto mt-2 flex flex-col sm:flex-row justify-center gap-4 bg-slate-100 shadow-md dark:bg-slate-800">
         <div><AdComp/></div>
         <div className="hidden sm:block"><AdComp/></div>
       </div>

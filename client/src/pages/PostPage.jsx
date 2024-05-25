@@ -96,7 +96,7 @@ export default function PostPage() {
         className="p-3 max-w-2xl mx-auto w-full post-content"
         dangerouslySetInnerHTML={{ __html: post && firstHalfe }}
       ></div>
-      <div className="p-3  max-w-6xl mx-auto mt-2 flex flex-col sm:flex-row justify-center gap-4 bg-slate-100 shadow-md">
+      <div className="p-3  max-w-6xl mx-auto mt-2 flex flex-col sm:flex-row justify-center gap-4 bg-slate-100 dark:bg-slate-800 shadow-md">
         <div><AdComp/></div>
         <div className="hidden sm:block"><AdComp/></div>
       </div>
